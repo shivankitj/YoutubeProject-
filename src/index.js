@@ -3,13 +3,24 @@ import dotenv from 'dotenv'
 
 // jitni jaldi application load ho utni jaldi environment variable har jagah availabale hona chahiye
 // isliye jo first file load ho rahi hai kosis karo ki usme hi env file load ho jaye...
-import mongoose from "mongoose";
-import { DB_NAME } from "./constants.js";
+// import mongoose from "mongoose";
+// import { DB_NAME } from "./constants.js";
 import connectDB from './db/index.js'
-
+import app from './app.js'
 
 dotenv.config({
     path: './env'
+})
+
+connectDB()
+.then(()=> {
+    app.listen(process.env.PORT ||8000 , () => {
+        console.log(`A server is runnning at port : ${process.env.PORT}`);
+    })
+})
+.catch((err)=>{
+    console.log("Mongo db connectionr failed !!! ", err);
+
 })
 
 /*
