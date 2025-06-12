@@ -16,4 +16,18 @@ app.use(express.urlencoded({extended:true,limit: "16kb"}))
 app.use(express.static("public"))
 app.use(cookieParser())
 
+
+// routes import
+import { useRouter } from "./routes/user.routes.js";
+
+// routes decleration
+// ab router ko lane ke lite middleware lama padega
+
+app.get("/api/v2/users",userRouter)
+// app.get("/users",userRouter)
+
+// contol pass ho gaya user.routes.js ko
+//  http://localhost:800/users/register
+
+import userRouter from "../routes/user.routes.js"
 export {app}
