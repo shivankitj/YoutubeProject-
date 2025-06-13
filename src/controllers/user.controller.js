@@ -1,4 +1,4 @@
-import {asyncHandler} from "../utils/asyncHandler"
+import {asyncHandler} from "../utils/asyncHandler.js"
 
 
 const registerUser = asyncHandler( async (requestAnimationFrame,res) => {
@@ -7,4 +7,6 @@ const registerUser = asyncHandler( async (requestAnimationFrame,res) => {
     })
 })
 
-export {registerUser};
+export {
+    registerUser,
+}
