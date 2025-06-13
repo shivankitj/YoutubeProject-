@@ -22,11 +22,10 @@ import userRouter from "./routes/user.routes.js";
 
 // routes decleration
 // ab router ko lane ke lite middleware lama padega
-
-app.get("/api/v2/users",userRouter)
-// app.get("/users",userRouter)
+app.use("/api/v1/users",userRouter)
+// app.use("/users",userRouter)
 
 // contol pass ho gaya user.routes.js ko
 //  http://localhost:800/api/v2/users/register
 
-export {app}
+export {app};
