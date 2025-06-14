@@ -1,6 +1,12 @@
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
+import dotenv from "dotenv"
+
+dotenv.config({
+    path:"./.env"
+});
+
 
 
 const userSchema = new mongoose.Schema({
@@ -33,10 +39,10 @@ const userSchema = new mongoose.Schema({
     coverImage: {
         type: String,
     },
-    watchHistory: {
+    watchHistory: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Video"
-    },
+    }],
 
     password: {
         type: String,
@@ -55,7 +61,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre("save",async function(next) {
     if(!this.isModified("password")) return next()
-    this.password = bcrypt.hash(this.password,10)
+    this.password = await bcrypt.hash(this.password,10)
     next() 
 })
 
@@ -93,4 +99,4 @@ userSchema.methods.generateRefreshToken=function(){
 
 
 // JWT is a bearer token (its like a key jo chabhi bhejga usko data bhej dega)
-export const Video = mongoose.model("User",userSchema)
+export const User = mongoose.model("User",userSchema)

@@ -1,22 +1,29 @@
 import { Router } from "express"
-import {registerUser} from "../controllers/user.controller.js"
+import {registerUser} from "../controllers/user.controller.js";
+import { upload } from "../middleware/multer.middleware.js";
 
-const router= Router();
+const userRouter= Router();
 
-router.post("/register", registerUser);
+userRouter.get("/ping", (req, res) => {
+    res.send("User route is connected!");
+});
+
+userRouter.post("/register",
+    upload.fields(
+[
+    {
+        name: "avatar",
+        maxCount: 1
+    },
+    {
+        name: "coverImage",
+        maxCount: 1  
+    }
+]) ,registerUser);
 // router.route("/login").post(login)  abhi humne controllers me login ka filenahi likha hai
 
 
-export default router;
+export default userRouter;
 
 
-// import express from "express";
-// import { registerUser } from "../controllers/user.controller.js";
-// import { upload } from "../middleware/multer.middleware.js"; // Your multer setup
 
-// const router = express.Router();
-
-// // POST route that accepts file upload (e.g. profile image)
-// router.post("/register", upload.single("profilePic"), registerUser);
-
-// export default router;
